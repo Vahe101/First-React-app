@@ -4,7 +4,7 @@ import { Button } from '../../shared/button/index';
 import './style.css';
 
 export const Card = ({ value, onDelete }) => {
-  return (
+  return ( 
     <div className='card'>
       {value}
       <div className='butDiv'>

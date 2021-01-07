@@ -34,7 +34,7 @@ const App = () => {
   const deleteCard = (index) => {
     const elems = [...elements];
     elems.splice(index, 1);
-    setElements(elems);
+    setElements(elems); 
   };
 
   const getRandom = () => {
