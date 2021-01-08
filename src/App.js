@@ -1,16 +1,21 @@
-import "./App.css";
+import React, { useState, useEffect } from "react";
 import { Header } from "./header";
 import { Content } from "./content";
-import { Instruction } from "./instructions/index";
-import React, { useState, useEffect } from "react";
+import { Instruction } from "./instructions";
 import { Footer } from "./footer";
 
+import "./App.css";
+
 const App = () => {
+  const limit = 100;
+
   const request = new Request(`http://127.0.0.1:3000/`);
 
   const [elements, setElements] = useState([]);
-  const instructions = "Instructions";
-  const footer = "Footer";
+
+  const [instructions, setInstructions] = useState("Instructions");
+
+  const [footer, setFooter] = useState("Footer");
 
   useEffect(() => {
     fetch(request)
@@ -27,18 +32,26 @@ const App = () => {
 
   const createCard = () => {
     const elems = [...elements];
-    elems.push(getRandom());
+    let rand = getRandom();
+    let size = elems.length;
+    if (elems.indexOf(rand) !== -1 && size < limit) {
+      return createCard();
+    } else if (size === limit) {
+      alert("limit of addition reached");
+      return;
+    }
+    elems.push(rand);
     setElements(elems);
   };
 
   const deleteCard = (index) => {
     const elems = [...elements];
     elems.splice(index, 1);
-    setElements(elems); 
+    setElements(elems);
   };
 
   const getRandom = () => {
-    return Math.floor(Math.random() * 100);
+    return Math.floor(Math.random() * limit);
   };
 
   const sortCards = () => {

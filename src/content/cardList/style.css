@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     width: 60%;
-    min-height: calc(100vh - 80px);
+    height: calc(100vh - 300px);
     background-color: rgb(158, 243, 243); 
+    overflow: auto;
 }

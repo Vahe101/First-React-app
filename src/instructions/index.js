@@ -1,9 +1,9 @@
 import './style.css';
 
-export const Instruction = (props) => {
+export const Instruction = ({ value }) => {
     return (
         <div className='instruction'>
-            {props.value}
+            {value}
         </div> 
     )
 }

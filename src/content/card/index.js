@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '../../shared/button/index';
+import { Button } from '../../shared/button';
 
 import './style.css';
 
