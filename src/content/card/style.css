@@ -1,0 +1,26 @@
+button {
+    outline: none;
+    font-family: Comic Sans MS;
+}
+
+.card {
+    width: 250px;
+    height: 250px; 
+    margin-top: 30px;
+    border: 1px solid seashell;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(125, 183, 209);
+}
+
+.button {
+    background-color: rgb(42, 164, 168);
+}
+
+.butDiv {
+    position: absolute;
+    margin-left: 235px;
+    margin-bottom: 225px;
+}
