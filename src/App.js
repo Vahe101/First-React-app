@@ -9,6 +9,8 @@ import "./App.css";
 const App = () => {
   const limit = 100;
 
+  const storageKey = "elemsOfArray";
+
   const request = new Request(`http://127.0.0.1:3000/`);
 
   const [elements, setElements] = useState([]);
@@ -17,10 +19,9 @@ const App = () => {
 
   const [footer, setFooter] = useState("Footer");
 
-  const [storageKey, setStorageKey] = useState("elemsOfArray");
-
   useEffect(() => {
-    if (!getItemsFromStorage(storageKey)) {
+    const getter = getItemsFromStorage(storageKey);
+    if (!getter) {
       fetch(request)
         .then((result) => {
           return result.json();
@@ -33,7 +34,7 @@ const App = () => {
           alert(value);
         });
     } else {
-      const array = JSON.parse(getItemsFromStorage(storageKey));
+      const array = JSON.parse(getter);
       setElements(array);
     }
   }, []);
@@ -71,11 +72,11 @@ const App = () => {
 
   const setItemsToStorage = (key, value) => {
     return localStorage.setItem(key, JSON.stringify(value));
-  }
+  };
 
   const getItemsFromStorage = (key) => {
     return localStorage.getItem(key);
-  }
+  };
 
   const getRandom = () => {
     return Math.floor(Math.random() * limit);
