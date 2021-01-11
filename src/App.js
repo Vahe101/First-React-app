@@ -20,24 +20,24 @@ const App = () => {
   const [footer, setFooter] = useState("Footer");
 
   useEffect(() => {
-    const getter = getItemsFromStorage(storageKey);
-    if (!getter) {
-      fetch(request)
-        .then((result) => {
-          return result.json();
-        })
-        .then((data) => {
-          setItemsToStorage(storageKey, data);
-          setElements(data);
-        })
-        .catch((value) => {
-          alert(value);
-        });
-    } else {
-      const array = JSON.parse(getter);
+    const storageElements = getItemsFromStorage(storageKey);
+    if (storageElements) {
+      const array = JSON.parse(storageElements);
       setElements(array);
+    } else {
+      fetch(request)
+      .then((result) => {
+        return result.json();
+      })
+      .then((data) => {
+        setItemsToStorage(storageKey, data);
+        setElements(data);
+      })
+      .catch((value) => {
+        alert(value);
+      });
     }
-  }, []);
+    }, []);
 
   const createCard = () => {
     const elems = [...elements];
