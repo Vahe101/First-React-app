@@ -17,17 +17,25 @@ const App = () => {
 
   const [footer, setFooter] = useState("Footer");
 
+  const [storageKey, setStorageKey] = useState("elemsOfArray");
+
   useEffect(() => {
-    fetch(request)
-      .then((result) => {
-        return result.json();
-      })
-      .then((data) => {
-        setElements(data);
-      })
-      .catch((value) => {
-        alert(value);
-      });
+    if (!getItemsFromStorage(storageKey)) {
+      fetch(request)
+        .then((result) => {
+          return result.json();
+        })
+        .then((data) => {
+          setItemsToStorage(storageKey, data);
+          setElements(data);
+        })
+        .catch((value) => {
+          alert(value);
+        });
+    } else {
+      const array = JSON.parse(getItemsFromStorage(storageKey));
+      setElements(array);
+    }
   }, []);
 
   const createCard = () => {
@@ -42,16 +50,14 @@ const App = () => {
     }
     elems.push(rand);
     setElements(elems);
+    setItemsToStorage(storageKey, elems);
   };
 
   const deleteCard = (index) => {
     const elems = [...elements];
     elems.splice(index, 1);
     setElements(elems);
-  };
-
-  const getRandom = () => {
-    return Math.floor(Math.random() * limit);
+    setItemsToStorage(storageKey, elems);
   };
 
   const sortCards = () => {
@@ -60,6 +66,19 @@ const App = () => {
       return a - b;
     });
     setElements(elems);
+    setItemsToStorage(storageKey, elems);
+  };
+
+  const setItemsToStorage = (key, value) => {
+    return localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  const getItemsFromStorage = (key) => {
+    return localStorage.getItem(key);
+  }
+
+  const getRandom = () => {
+    return Math.floor(Math.random() * limit);
   };
 
   return (
